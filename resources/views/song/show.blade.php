@@ -25,7 +25,33 @@
                     </form>
                 </div>
             </div>
-        <form action="{{ route('song.addPlaylist', $song->id) }}" method="POST" class="inline-block"></form>
+            <div>
+                <h1>Playlists: </h1>
+                <table class="w-full table-auto">
+                    <tbody>
+                        @foreach ($song->playlists as $playlist)
+                        <tr>
+                            <td class="border px-4 py-2">
+                                {{ $playlist->name }} | {{ $playlist->tag}}
+                            </td>
+                        </tr>
+                        
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        <form action="{{ route('song.addPlaylist', $song->id) }}" method="POST" class="inline-block">
+            @csrf
+            <label for="playlist">Choose where to add the song: </label>
+            <select name="playlist" id="playlist">
+            @foreach ($allPlaylists as $playlist)
+                <option value="{{$playlist->id}}">{{$playlist->name}}</option>
+            @endforeach
+            </select>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Add
+            </button>
+    </form>
         </div>
     </div>
 </x-app-layout>

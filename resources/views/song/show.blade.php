@@ -25,6 +25,7 @@
                     </form>
                 </div>
             </div>
+        <form action="{{ route('song.addPlaylist', $song->id) }}" method="POST" class="inline-block"></form>
         </div>
     </div>
 </x-app-layout>

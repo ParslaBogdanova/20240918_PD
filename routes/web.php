@@ -13,6 +13,7 @@ Route::resource('playlist', PlaylistController::class);
 Route::post('playlist/{playlist}/addSong',[PlaylistController::class, 'addSong'])->name('playlist.addSong');
 Route::delete('playlist/{playlist}/removeSong',[PlaylistController::class, 'removeSong'])->name('playlist.removeSong');
 Route::resource('song', SongController::class);
+Route::post('song/{song}/addPlaylist', [SongController::class, 'addPlaylist'])->name('song.addPlaylist');
 
 
 Route::get('/dashboard', function () {

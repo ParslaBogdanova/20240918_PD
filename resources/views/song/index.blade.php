@@ -78,8 +78,13 @@
                     <a href="{{ route('song.edit', $song->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">
                         Edit
                     </a>
-                    <a href="{{ route('song.destroy', $song->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">
-                        Delete
+                    <form action="{{ route('song.destroy', $song->id) }}" method = "post" class="inline-block">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Delete
+                    </button>
+            </form>  
                     </a>
                 </div>
             </div>

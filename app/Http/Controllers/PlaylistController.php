@@ -14,7 +14,12 @@ class PlaylistController extends Controller
     public function index()
     {
         $playlists = Playlist::all();
-        return view('playlist.index', compact('playlists'));
+        return view('playlist.index', ['playlists'=>$playlists]);
+    }
+
+    public function create()
+    {
+        return view('playlist.create');
     }
 
     /**
@@ -41,7 +46,7 @@ class PlaylistController extends Controller
     public function show(Playlist $playlist)
     {
         $allSongs = Song::all();
-        return view('playlist.show');
+        return view('playlist.show',['playlist'=>$playlist, 'allSongs'=>$allSongs]);
     }
 
     /**
@@ -59,12 +64,12 @@ class PlaylistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
 {
     // Validate the request data
     $request->validate([
         'name' => 'required',
-        'tag' => 'required'
+        'tag' => 'required',
     ]);
 
     // Find the playlist and update its attributes
@@ -81,7 +86,10 @@ class PlaylistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy() {
+    public function destroy($id) 
+    {
+        $playlist = Playlist::where('id', $id);
+        $playlist->delete();
         return redirect('/playlist')->with('success', 'Playlist deleted successfully!');
     }
 
@@ -90,8 +98,16 @@ class PlaylistController extends Controller
             return redirect()->back()->with('error', 'Song is already in the playlist.');
         }
 
-        $playlist->songs()->attach();
+        $playlist->songs()->attach($request['song']);
         return redirect('/playlist/' . $playlist->id)->with('success', 'Song added successfully!');
+    }
+
+    public function removeSong(Request $request, Playlist $playlist)
+    {
+        
+        $playlist->songs()->detach($request['song']);
+        return redirect('/playlist/' . $playlist->id)->with('success', 'Song has been removed!');
+
     }
 
 }

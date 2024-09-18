@@ -10,8 +10,8 @@ Route::get('/', function () {
 
 
 Route::resource('playlist', PlaylistController::class);
-Route::post('playlist/{playlist}/addsong',[PlaylistController::class, 'addSong'])->name('playlist.addsong');
-Route::post('playlist/{playlist}/removesong',[PlaylistController::class, 'removeSong'])->name('playlist.removesong');
+Route::post('playlist/{playlist}/addSong',[PlaylistController::class, 'addSong'])->name('playlist.addSong');
+Route::post('playlist/{playlist}/removeSong',[PlaylistController::class, 'removeSong'])->name('playlist.removeSong');
 Route::resource('song', SongController::class);
 
 

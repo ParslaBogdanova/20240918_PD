@@ -10,8 +10,8 @@ class SongController extends Controller
     
     public function index()
     {
-        $songs = Song::limit(2);
-        return view('song.index', compact('songs'));
+        $songs = Song::all();
+        return view('song.index', ['songs'=>$songs]);
     }
 
     /**
@@ -73,14 +73,12 @@ class SongController extends Controller
             'genre' => 'required'
         ]);
 
-        if ($request->user()->id == auth()->user()->id) {
             Song::where('id', $id)
                 ->update([
                     'title' => $request->input('title'),
                     'artist' => $request->input('artist'),
                     'genre' => $request->input('genre')
         ]);
-    }
 
     return redirect('/song'); //--------------Šo vajadzēs samainīt!!!!!!
     }
